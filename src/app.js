@@ -12,7 +12,7 @@ expressWs(app); // Enable WebSocket support
 
 app.use(
   cors({
-    origin: 'http://localhost:5173', // or your frontend URL
+    origin: 'https://audiotex-kappa.vercel.app', // or your frontend URL
     credentials: true,
   })
 );
