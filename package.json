@@ -1,0 +1,26 @@
+{
+  "name": "audio-transcription-server",
+  "version": "1.0.0",
+  "description": "A server for handling audio file uploads for transcription using Express and Supabase.",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.4",
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.2",
+    "express-ws": "^5.0.2",
+    "form-data": "^4.0.4",
+    "multer": "^2.0.2",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
