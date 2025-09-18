@@ -1,69 +1,95 @@
-# Audio Transcription Server
+# 🎤 Audio Transcription Server
 
-This project is an audio transcription web application built with Node.js, Express, and Supabase. It allows users to upload audio files for transcription and stores the files in Supabase.
+This is the backend server for **AudioTex**, a real-time and file-based audio transcription app.  
+It handles authentication, audio uploads, streaming with AssemblyAI, and history management via Supabase.
 
-## Features
+---
 
-- Upload audio files using Multer middleware.
-- Store audio files in Supabase.
-- Process audio files for transcription.
+## 📂 Project Structure
 
-## Project Structure
+```plaintext
+📁 src
+├── 📁 controllers
+│   ├── streamingController.js        # Handles AssemblyAI WebSocket streaming
+│   └── transcriptionController.js    # Handles file-based transcription
+├── 📁 middleware
+│   ├── authMiddleware.js             # Protects private routes
+│   └── multerConfig.js               # File upload config
+├── 📁 routes
+│   ├── auth.js                       # Authentication routes (login/signup)
+│   ├── history.js                    # Manage transcription history
+│   └── upload.js                     # Upload audio for transcription
+├── 📁 services
+│   ├── assemblyaiService.js          # Handles AssemblyAI API (file upload)
+│   ├── assemblyaiStreamingService.js # Handles AssemblyAI WebSocket streaming
+│   └── supabaseService.js            # Supabase client & queries
+└── app.js                            # Express app entry point
+🚀 Features
+🔑 Authentication (Supabase Auth)
 
-```
-audio-transcription-server
-├── src
-│   ├── app.js                # Entry point of the application
-│   ├── routes
-│   │   └── upload.js         # Route for handling audio file uploads
-│   ├── controllers
-│   │   └── transcriptionController.js # Controller for processing audio files
-│   ├── services
-│   │   └── supabaseService.js # Service for interacting with Supabase
-│   └── middleware
-│       └── multerConfig.js    # Middleware for configuring file uploads
-├── package.json               # NPM configuration file
-├── .env                       # Environment variables
-└── README.md                  # Project documentation
-```
+⬆️ Upload Audio Files (MP3, WAV, etc.)
 
-## Installation
+🟢 Real-time Transcription using AssemblyAI WebSocket
 
-1. Clone the repository:
+📝 Transcription History stored in Supabase
 
-   ```
-   git clone <repository-url>
-   ```
+🔒 Protected Routes via middleware
 
-2. Navigate to the project directory:
+⚡ Modular Structure for easy scaling
 
-   ```
-   cd audio-transcription-server
-   ```
+🛠️ Tech Stack
+Node.js + Express
 
-3. Install the dependencies:
+AssemblyAI (Streaming & File API)
 
-   ```
-   npm install
-   ```
+Supabase (Auth + Database)
 
-4. Create a `.env` file in the root directory and add your Supabase credentials:
+Multer (file uploads)
 
-   ```
-   SUPABASE_URL=<your-supabase-url>
-   SUPABASE_KEY=<your-supabase-key>
-   ```
+⚙️ Setup & Installation
+1️⃣ Clone Repo
 
-## Usage
+git clone https://github.com/your-username/audio-transcription-server.git
+cd audio-transcription-server
 
-1. Start the server:
+2️⃣ Install Dependencies
+npm install
 
-   ```
-   npm start
-   ```
+3️⃣ Create .env File
+Create a .env file in the root:
 
-2. Use a tool like Postman or cURL to send a POST request to `/upload` with the audio file.
+PORT=5000
+SUPABASE_URL=your_supabase_url
+SUPABASE_KEY=your_supabase_anon_or_service_role_key
+ASSEMBLYAI_API_KEY=your_assembly_ai_key
+JWT_SECRET=your_secret_key
 
-## License
+4️⃣ Run Server
+npm run dev
 
-This project is licensed under the MIT License.
+Server will run at:
+👉 http://localhost:5000
+
+📌 API Endpoints
+🔑 Auth
+POST /auth/signup → Register new user
+
+POST /auth/login → Login existing user
+
+⬆️ Upload
+POST /upload → Upload audio file for transcription
+
+🟢 Streaming
+POST /stream/start → Start real-time transcription
+
+📝 History
+GET /history → Get user’s transcription history
+
+POST /history → Save a new transcription
+
+🧪 Example Request (Upload)
+bash
+Copy code
+curl -X POST http://localhost:5000/upload \
+  -H "Authorization: Bearer <token>" \
+  -F "file=@sample.mp3
